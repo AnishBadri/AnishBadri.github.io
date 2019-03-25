@@ -83,7 +83,7 @@
   function takepicture() {
     var canvasStore = newCanvas();
     var photoOutput = insertImg();
-    console.log(canvasStore)
+    // console.log(canvasStore)
     var context = canvasStore.getContext('2d');
     if (width && height) {
       canvasStore.width = width;
@@ -95,7 +95,7 @@
       photo.setAttribute('src', data);
       $(".output").show();
       $(photo).fadeTo('fast', .50);
-      display(data);
+      // display(data);
       makeGif();
     } else {
       clearphoto();
@@ -121,10 +121,10 @@
     return ($(`#${identifier}`)[0]);
   }
 
-  function display(data) {
-    $(".display").append('<img id="Image-1"/>');
-    // $("#Image-1").setAttribute('src', data);
-  }
+  // function display(data) {
+  //   $(".display").append('<img id="Image-1"/>');
+  //   // $("#Image-1").setAttribute('src', data);
+  // }
 
 
 
@@ -134,23 +134,35 @@
   // window.addEventListener('load', makeGif, false);
 
   function makeGif() {
-    var imgs = document.querySelectorAll('img');
+    $('.gif img').remove();
+    $("<img>").attr({
+      id: "animate-gif"
+    }).appendTo('.gif');
+    var imgs = document.querySelectorAll('.display img');
+    // console.log(imgs)
 
-    var ag = new Animated_GIF(); 
+    var ag = new Animated_GIF({
+      repeat : 0
+    }); 
     ag.setSize(320, 240);
+    ag.setDelay(200);
 
     for(var i = 0; i < imgs.length; i++) {
-      if(i!=0) {
+      // if(i!=0) {
         ag.addFrame(imgs[i]);
-      }
+        console.log(imgs[i]);
+      // }
     }
 
-    var animatedImage = document.createElement('img');
+    var animatedImage = $(".gif img")[0];
+    console.log(animatedImage)
+
 
     // This is asynchronous, rendered with WebWorkers
     ag.getBase64GIF(function(image) {
+
         animatedImage.src = image;
-        document.body.appendChild(animatedImage);
+        // document.body.appendChild(animatedImage);
     });
   }
 })();
