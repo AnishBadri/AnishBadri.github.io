@@ -96,6 +96,7 @@
       $(".output").show();
       $(photo).fadeTo('fast', .50);
       display(data);
+      makeGif();
     } else {
       clearphoto();
     }
@@ -130,7 +131,7 @@
   // Set up our event listener to run the startup process
   // once loading is complete.
   window.addEventListener('load', startup, false);
-  window.addEventListener('load', makeGif, false);
+  // window.addEventListener('load', makeGif, false);
 
   function makeGif() {
     var imgs = document.querySelectorAll('img');
