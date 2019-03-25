@@ -92,14 +92,23 @@
     
       var data = canvasStore.toDataURL('image/png');
       photoOutput.setAttribute('src', data);
-      photo.setAttribute('src', data);
+      // photo.setAttribute('src', data);
       $(".output").show();
       $(photo).fadeTo('fast', .50);
       // display(data);
-      makeGif();
+      setSource(photo, data).then(makeGif());
     } else {
       clearphoto();
     }
+  }
+
+
+  function setSource(photo,data) {
+    return  new Promise(resolve =>{
+      photo.setAttribute('src', data);
+      console.log("Added source");
+      resolve("done adding source");
+    });
   }
 
   function newCanvas() {
@@ -134,6 +143,7 @@
   // window.addEventListener('load', makeGif, false);
 
   function makeGif() {
+    console.log("Starting GIF");
     $('.gif img').remove();
     $("<img>").attr({
       id: "animate-gif"
@@ -155,7 +165,7 @@
     }
 
     var animatedImage = $(".gif img")[0];
-    console.log(animatedImage)
+    // console.log(animatedImage)
 
 
     // This is asynchronous, rendered with WebWorkers
